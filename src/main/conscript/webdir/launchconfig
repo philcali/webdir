@@ -1,0 +1,11 @@
+[app]
+  version: 0.1.0
+  org: com.github.philcali
+  name: webdir
+  class: com.github.philcali.web.App
+[scala]
+  version: 2.10.1
+[repositories]
+  local
+  maven-central
+  sonatype-releases: https://oss.sonatype.org/content/repositories/releases/

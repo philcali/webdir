@@ -1,0 +1,109 @@
+!html
+
+html
+  head
+    title "{path}"
+    css
+      ~~~
+td:last-child {
+  text-align: center;
+}
+
+td:last-child > a {
+  text-decoration: none;
+}
+
+td:last-child > a:hover {
+  text-decoration: none;
+}
+      ~~~ is unescaped
+    css @href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.css"
+    js @src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ""
+    js @src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js" ""
+  body
+    h3
+      "{path}"
+      a.upload @href="{path}"
+        img @src="/?image=upload.png" @title="Upload here"
+    table
+      thead
+        th "Files"
+        th "Action"
+      tbody
+        files
+          tr
+            td a @href="{directory}/{filename}" filename
+            td
+              if-is-directory
+                a.upload @href="{directory}/{filename}"
+                  img @src="/?image=upload.png" @title="Upload"
+              else
+                a.delete @href="{directory}/{filename}"
+                  img @src="/?image=delete.png" @title="Delete"
+    >#delete-form @style="display: none" @title="Delete file"
+      p
+        "Are you sure you want to delete "
+        span
+      form @method="POST"
+        input @type="hidden" @name="delete" @value
+    >#upload-form @style="display: none" @title="Upload a file"
+      p
+        "You are uploading to "
+        span
+      form @method="POST" @enctype="multipart/form-data"
+        fieldset
+          label @for="filename"
+          input#filename @type="file" @name="file"
+    js
+      ~~~
+$(function() {
+  $('#delete-form').dialog({
+    autoOpen: false,
+    height: 250,
+    width: 720,
+    modal: true,
+    buttons: {
+      "Cancel": function() {
+        $(this).dialog("close");
+      },
+      "Delete": function() {
+        $(this).find("form").submit();
+      }
+    }
+  });
+
+  $('#upload-form').dialog({
+    autoOpen: false,
+    height: 300,
+    width: 720,
+    modal: true,
+    buttons: {
+      "Cancel": function() {
+        $(this).dialog("close");
+      },
+      "Upload": function() {
+        $(this).find("form").submit();
+      }
+    }
+  });
+
+  $('.delete').click(function() {
+    var $form = $('#delete-form');
+
+    $form.find('p > span').text($(this).attr('href'));
+    $form.find('input[name=delete]').val($(this).attr('href'));
+    $form.dialog('open');
+
+    return false;
+  });
+
+  $('.upload').click(function() {
+    var $form = $('#upload-form');
+
+    $form.find('p > span').text($(this).attr('href'));
+    $form.dialog('open');
+
+    return false;
+  });
+});
+      ~~~ is unescaped
