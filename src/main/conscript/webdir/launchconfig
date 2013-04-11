@@ -4,7 +4,7 @@
   name: webdir
   class: com.github.philcali.web.App
 [scala]
-  version: 2.10.1
+  version: 2.9.2
 [repositories]
   local
   maven-central

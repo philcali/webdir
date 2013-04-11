@@ -6,6 +6,15 @@ import unfiltered.util.Port
 import java.net.URL
 import java.io.File
 
+class App extends xsbti.AppMain {
+  case class Exit(code: Int) extends xsbti.Exit
+
+  def run(config: xsbti.AppConfiguration): Exit = {
+    App.main(config.arguments)
+    new Exit(0)
+  }
+}
+
 object App {
   val RegPort = """-p\s+(\d+)""".r
 
@@ -24,7 +33,7 @@ object App {
         .plan(WebApp(cwd))
 
     http.run
-    println(s"Server started on ${port}. Press enter to kill")
+    println("Server started on %d. Press enter to kill." format port)
     Console.readLine
     http.stop
   }
