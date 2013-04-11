@@ -10,3 +10,11 @@ transfer service (ie: Chromebook)
 ```
 > webdir [-p ##]
 ```
+
+# Install
+
+Install the command line program via [cs](https://github.com/n8han/conscript#readme).
+
+```
+> cs philcali/webdir
+```
