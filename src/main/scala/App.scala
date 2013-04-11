@@ -32,9 +32,8 @@ object App {
         .plan(FileTree(cwd))
         .plan(WebApp(cwd))
 
-    http.run
-    println("Server started on %d. Press enter to kill." format port)
-    Console.readLine
-    http.stop
+    http.run { s =>
+      println("Server started on %d" format port)
+    }
   }
 }
